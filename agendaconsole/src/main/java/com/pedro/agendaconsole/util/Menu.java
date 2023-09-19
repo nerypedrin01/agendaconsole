@@ -1,8 +1,12 @@
 package com.pedro.agendaconsole.util;
 
+import java.util.List;
 import java.util.Scanner;
 
 import org.apache.commons.lang3.StringUtils;
+
+import com.pedro.agendaconsole.business.PessoaBusiness;
+import com.pedro.agendaconsole.domain.Pessoa;
 
 public class Menu {
 
@@ -12,12 +16,13 @@ public class Menu {
 
 		Scanner scan = new Scanner(System.in);
 
-		System.out.println("Digite");
+		System.out.print("Digite: ");
 		String op = scan.nextLine();
 
 		while (!op.equals("4")) {
 
 			if (op.equals("1")) {
+				listaContatos();
 
 			} else if (op.equals("2")) {
 
@@ -35,9 +40,9 @@ public class Menu {
 
 	private void carregaMenu() {
 
-		String menu = StringUtils.rightPad("MENU", 19, ' ')+"|";
+		String menu = StringUtils.rightPad("MENU", 19, ' ') + "|";
 
-		menu = "|"+StringUtils.leftPad(menu, 33, ' ');
+		menu = "|" + StringUtils.leftPad(menu, 33, ' ');
 
 		System.out.println("*" + StringUtils.leftPad("" + "", 32, '-') + "*");
 		System.out.println(menu);
@@ -52,4 +57,15 @@ public class Menu {
 
 	}
 
+	private void listaContatos() {
+
+		PessoaBusiness bss = new PessoaBusiness();
+
+		List<Pessoa> pessoas = bss.getListRowNum();
+		int count = 1;
+
+		for (Pessoa pessoa : pessoas)
+			System.out.println(count++ + " - " + pessoa.toString());
+
+	}
 }

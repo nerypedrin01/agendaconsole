@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.pedro.agendaconsole.util.Funcoes;
+
 
 @Entity(name = "PESSOA")
 @Table(name = "PESSOA")
@@ -55,6 +57,6 @@ public class Pessoa {
 
 	@Override
 	public String toString() {
-		return "COD PESSOA = " + this.codPessoa + ", nome = " + nomeRazaoSocial + ", celular = " + celular;
+		return  nomeRazaoSocial + " - " + Funcoes.formataCelular(celular);
 	}
 }

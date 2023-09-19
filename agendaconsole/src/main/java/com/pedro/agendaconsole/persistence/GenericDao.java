@@ -16,7 +16,6 @@ public class GenericDao<T> {
 
 	EntityManager em = emFM.createEntityManager();
 
-	
 	public GenericDao(Class<T> clazz) {
 
 		this.clazz = clazz;
@@ -30,12 +29,29 @@ public class GenericDao<T> {
 
 	}
 
+	public List<T> getListRowNum() {
+
+		TypedQuery<T> query = em.createQuery("select obj from " + clazz.getName() + " obj where rownum <= 10 and obj.celular is not null order by obj.nomeRazaoSocial and obj.usr is not null", clazz);
+
+		return query.getResultList();
+
+	}
+
 	public T create(T t) {
 
 		em.getTransaction().begin();
 		em.persist(t);
 		em.getTransaction().commit();
 
+		return t;
+	}
+	
+	public T update(T t) {
+		
+		em.getTransaction().begin();
+		em.merge(t);
+		em.getTransaction().commit();
+		
 		return t;
 	}
 
